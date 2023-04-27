@@ -43,5 +43,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_saisir_demande') }}">Create new</a>
+{% if user.estBloque == true %}
+    <a href="{{ path('app_mes_demandes') }}" onclick="afficherMessage()">Create new</a>
+{% endif %}
+    <script>
+        function afficherMessage() {
+            alert("Vous ne pouvez pas créer de demande.");
+        }
+    </script>
 {% endblock %}

@@ -20,13 +20,19 @@ class DemandeController extends AbstractController
     {
         $demande = new Demande();
         $demande->setUser($this->getUser());
+        $user = $this->getUser();
+        if ($user->$this->EstBloque()) {
+
+            return $this->redirectToRoute('app_mes_demandes', [], Response::HTTP_SEE_OTHER);
+
+        }
+
         $form = $this->createForm(DemandeType::class, $demande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $demandeRepository->save($demande, true);
 
-            return $this->redirectToRoute('app_mes_demandes', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('demande/new.html.twig', [
